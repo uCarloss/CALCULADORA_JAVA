@@ -1,0 +1,69 @@
+package calculadora.java;
+
+import java.util.InputMismatchException;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class CalculadoraJava {
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+
+        Double n1;
+        Double n2;
+        String operacao;
+        boolean continuar;
+
+        try {
+            do {
+                System.out.println("Digite um valor: ");
+                n1 = entrada.nextDouble();
+
+                System.out.println("Escolha uma operação( +, -, /, *): ");
+                operacao = entrada.next();
+
+                System.out.println("Digite outro valor: ");
+                n2 = entrada.nextDouble();
+
+                System.out.println("Resultado: " + realizarCalculo(n1, n2, operacao));
+
+                continuar = verificarNovaOperacao();
+            } while (continuar);
+        } catch (InputMismatchException ex) {
+            System.out.println("Os valores para calculo devem ser numéricos!!");
+        }
+    }
+
+    private static boolean verificarNovaOperacao() {
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println("Deseja realizar uma nova operação ? (S ou N): ");
+        return !entrada.nextLine().toUpperCase(Locale.ROOT).equals("N");
+    }
+
+    private static Double realizarCalculo(Double n1, Double n2, String operacao) {
+        Double respostaCalculo = 0.0;
+
+        switch (operacao) {
+            case "+":
+                respostaCalculo = n1 + n2;
+                break;
+            case "-":
+                respostaCalculo = n1 - n2;
+                break;
+            case "*":
+                respostaCalculo = n1 * n2;
+                break;
+            case "/":
+                respostaCalculo = n1 / n2;
+                break;
+
+            default:
+                System.out.println("Operação Inválida");
+        }
+
+        return respostaCalculo;
+
+    }
+}
